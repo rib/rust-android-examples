@@ -18,7 +18,7 @@ jobs:
         rust_version: [stable]
         cargo_ndk_args: [-t arm64-v8a -t armeabi-v7a -t x86_64 -t x86 -o app/src/main/jniLibs/]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - uses: hecrj/setup-rust-action@v1
         with:
@@ -53,6 +53,9 @@ jobs:
         working-directory: na-mainloop
         run: >
           CARGO_TARGET_DIR=$GITHUB_WORKSPACE/shared-target cargo ndk ${{ matrix.cargo_ndk_args }} build
+          echo "PWD:""
+          pwd
+          ls
           ./gradlew build
 
       - name: Build agdk-mainloop example
